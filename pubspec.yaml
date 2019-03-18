@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   http: ^0.12.0+1
   flutter_simple_dependency_injection: ^1.0.0
 
@@ -34,7 +36,7 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  #assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 

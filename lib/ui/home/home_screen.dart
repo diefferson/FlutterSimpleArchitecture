@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_architecture/res/app-strings.dart';
 
 class MyHomePage extends StatefulWidget {
 
@@ -21,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Hello World'),
+            Text(AppStrings.of(context).title),
           ],
         ),
       ),

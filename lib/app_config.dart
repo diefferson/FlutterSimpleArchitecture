@@ -5,7 +5,7 @@ enum Environment { DEV, STAGING, PROD }
 
 class AppConfig extends InheritedWidget{
 
-  AppConfig({@required this.environment,@required Widget child}) : super(child: child);
+  AppConfig({@required this.environment, @required Widget child}) : super(child: child);
 
   final Environment environment;
   

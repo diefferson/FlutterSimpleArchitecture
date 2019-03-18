@@ -7,7 +7,7 @@ void main() {
 
   var configuredApp = new AppConfig(
     environment: Environment.DEV,
-    child: MyApp(),
+    child:MyApp(),
   );
 
   runApp(configuredApp);
