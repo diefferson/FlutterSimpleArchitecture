@@ -9,4 +9,6 @@ class RestApi{
   RestApi(this.baseUrl);
 
 
+  String getHomeName() => "My Injected Home";
+
 }
