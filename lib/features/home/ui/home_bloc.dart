@@ -13,18 +13,21 @@ class HomeBloc extends Bloc{
   int totalResults = 0;
   bool hasReachedMax = false;
 
-  BehaviorSubject<List<Movie>> _movies = new BehaviorSubject();
+  BehaviorSubject<List<Movie>> _movies = BehaviorSubject();
   get outMovies => _movies.stream;
+  get inMovies => _movies.sink;
 
-  void fetchMovies() async{
-      var moviesResponse = await _repository.getUpcomingMovies(currentPage+1);
-      totalResults = moviesResponse.totalResults;
-      currentPage = moviesResponse.page;
-      hasReachedMax = currentPage == moviesResponse.totalPages;
-      if(outMovies.value == null){
-        _movies.sink.add(moviesResponse.results);
-      }else{
-        _movies.sink.add(outMovies.value..addAll(moviesResponse.results));
+  void fetchMovies()async{
+      if(!hasReachedMax){
+        var moviesResponse = await _repository.getUpcomingMovies(currentPage+1);
+        totalResults = moviesResponse.totalResults;
+        currentPage = moviesResponse.page;
+        hasReachedMax = currentPage == moviesResponse.totalPages;
+        if(outMovies.value == null){
+          inMovies.add(moviesResponse.results);
+        }else{
+          inMovies.add(outMovies.value..addAll(moviesResponse.results));
+        }
       }
   }
 

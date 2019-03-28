@@ -18,12 +18,11 @@ class _MyHomePageState extends State<MyHomePage> with HomeComponents{
 
   HomeBloc _bloc;
   final _scrollController = ScrollController();
-  final _scrollThreshold = 200.0;
 
   void _onScroll() {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
-    if (maxScroll - currentScroll <= _scrollThreshold) {
+    if (maxScroll - currentScroll <= 0) {
       _bloc.fetchMovies();
     }
   }
