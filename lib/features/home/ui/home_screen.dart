@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/data/domain/movie.dart';
+import 'package:flutter_clean_architecture/features/details/ui/details_screen.dart';
 import 'package:flutter_clean_architecture/features/home/di/home_injector.dart';
 import 'package:flutter_clean_architecture/features/home/ui/home_bloc.dart';
 import 'package:flutter_clean_architecture/features/home/ui/home_components.dart';
+import 'package:flutter_clean_architecture/res/app-strings.dart';
+import 'package:flutter_clean_architecture/util/slide_left_transition.dart';
 
 class MyHomePage extends StatefulWidget {
-
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -38,10 +37,10 @@ class _MyHomePageState extends State<MyHomePage> with HomeComponents{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(title: Text(AppStrings.of(context).title)),
       body: Center(
         child: StreamBuilder(
-            stream: _bloc.outMovies,
+            stream: _bloc.movies,
             builder: (buildContext, snapshot){
               if (snapshot.hasData) {
                 return moviesList(snapshot);
@@ -59,10 +58,17 @@ class _MyHomePageState extends State<MyHomePage> with HomeComponents{
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
         var movie = snapshot.data[index] as Movie;
-        return index+1 >= (_bloc.currentPage*20) ? bottomLoader() : listItem(movie);
-      },
+        return index+1 >= (_bloc.currentPage*20) ? bottomLoader() : listItem(movie, (){ _goToDeTails(movie); });
+      }, 
       itemCount: _bloc.hasReachedMax ? _bloc.totalResults:(_bloc.currentPage*20),
       controller: _scrollController,
+    );
+  }
+
+  _goToDeTails(Movie movie){
+    Navigator.push(
+      context,
+      SlideLeftRoute( widget :DetailsScreen(movie: movie) ),
     );
   }
 }

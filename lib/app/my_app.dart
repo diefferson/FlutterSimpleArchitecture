@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider<HomeBloc>(
           injector: HomeInjector.getInjector(),
-          child: MyHomePage(title: config.appName)
+          child: MyHomePage()
       ),
     );
   }

@@ -13,9 +13,9 @@ class HomeBloc extends Bloc{
   int totalResults = 0;
   bool hasReachedMax = false;
 
-  BehaviorSubject<List<Movie>> _movies = BehaviorSubject();
-  get outMovies => _movies.stream;
-  get inMovies => _movies.sink;
+  BehaviorSubject<List<Movie>> movies = BehaviorSubject();
+
+
 
   void fetchMovies()async{
       if(!hasReachedMax){
@@ -23,17 +23,17 @@ class HomeBloc extends Bloc{
         totalResults = moviesResponse.totalResults;
         currentPage = moviesResponse.page;
         hasReachedMax = currentPage == moviesResponse.totalPages;
-        if(outMovies.value == null){
-          inMovies.add(moviesResponse.results);
+        if(movies.value == null){
+          movies.add(moviesResponse.results);
         }else{
-          inMovies.add(outMovies.value..addAll(moviesResponse.results));
+          movies.add(movies.value..addAll(moviesResponse.results));
         }
       }
   }
 
   @override
   void dispose() {
-    _movies.close();
+    movies.close();
     super.dispose();
   }
 
